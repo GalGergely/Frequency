@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://dr3d46fipu843"]
+
+[ext_resource type="Texture2D" uid="uid://bw8aoscdq0r5o" path="res://Tilemap/monochrome_tilemap_transparent.png" id="2_n2f2t"]
+
+[sub_resource type="GDScript" id="GDScript_3jnb2"]
+script/source = "extends Area2D
+@onready var character_body_2d: CharacterBody2D = $\"../../CharacterBody2D\"
+
+@export var moved: bool = false
+@export var fanspeed : float = -100
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		print(\"Fan entered, applying speed: \", fanspeed)
+		character_body_2d.fan_speed = fanspeed
+
+func _on_body_exited(body: Node2D) -> void:
+	print(\"Fan exited, resetting fan speed\")
+	character_body_2d.fan_speed = 0
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7lj6"]
+size = Vector2(91.6665, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7x26"]
+atlas = ExtResource("2_n2f2t")
+region = Rect2(153, 289, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojsp8"]
+atlas = ExtResource("2_n2f2t")
+region = Rect2(170, 289, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qd1mw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7x26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojsp8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrdwg"]
+size = Vector2(14, 14)
+
+[node name="Fan" type="Area2D"]
+position = Vector2(959, 546)
+scale = Vector2(3, 3)
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point_center = Vector2(5, 0)
+gravity_direction = Vector2(5, 0)
+script = SubResource("GDScript_3jnb2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(52.4999, 0)
+shape = SubResource("RectangleShape2D_b7lj6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_qd1mw")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mrdwg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://beugtvu5bkjbf"]
+
+[ext_resource type="Script" path="res://path_follow_2d.gd" id="1_ah76b"]
+[ext_resource type="Texture2D" uid="uid://bw8aoscdq0r5o" path="res://Tilemap/monochrome_tilemap_transparent.png" id="2_rhre2"]
+
+[sub_resource type="Curve2D" id="Curve2D_yfin4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 340, 303, 0, 0, 0, 0, 341, 503)
+}
+point_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwwfr"]
+atlas = ExtResource("2_rhre2")
+region = Rect2(119, 303, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tqi0"]
+atlas = ExtResource("2_rhre2")
+region = Rect2(119, 321, 32, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jggmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwwfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tqi0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_quigd"]
+size = Vector2(71, 20)
+
+[node name="MovingPlatform" type="Path2D"]
+curve = SubResource("Curve2D_yfin4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(340, 303)
+rotation = 1.5658
+rotates = false
+script = ExtResource("1_ah76b")
+
+[node name="StaticBody2D" type="AnimatableBody2D" parent="PathFollow2D"]
+position = Vector2(8.99991, -1.76004)
+rotation = -1.5708
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D/StaticBody2D"]
+texture_filter = 1
+position = Vector2(-1.80502, -1.27554e-05)
+scale = Vector2(2.2, 2.22222)
+sprite_frames = SubResource("SpriteFrames_jggmd")
+autoplay = "default"
+speed_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/StaticBody2D"]
+position = Vector2(-0.810059, 1.00497)
+rotation = 0.005
+shape = SubResource("RectangleShape2D_quigd")
