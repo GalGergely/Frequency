@@ -1,7 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://8nf5y0db2yf8"]
 
+[ext_resource type="Script" path="res://fan.gd" id="1_w6gmt"]
 [ext_resource type="Texture2D" uid="uid://c3j1oveha1xdb" path="res://Tilemap/monochrome_tilemap.png" id="2_lj6w8"]
-[ext_resource type="Script" path="res://area_2d.gd" id="2_qog5v"]
 [ext_resource type="Texture2D" uid="uid://bw8aoscdq0r5o" path="res://Tilemap/monochrome_tilemap_transparent.png" id="3_lihmq"]
 [ext_resource type="Script" path="res://character_body_2d.gd" id="3_mnjho"]
 [ext_resource type="Texture2D" uid="uid://dkohlkovwex8e" path="res://dial.png" id="5_it42u"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://enemy.gd" id="10_renft"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7lj6"]
-size = Vector2(91.6665, 20)
+size = Vector2(105.333, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7x26"]
 atlas = ExtResource("3_lihmq")
@@ -869,17 +869,17 @@ animations = [{
 position = Vector2(-81, -51)
 
 [node name="Fan" type="Area2D" parent="."]
-position = Vector2(350, 553)
+position = Vector2(198, 554)
 scale = Vector2(3, 3)
+script = ExtResource("1_w6gmt")
 
 [node name="Area2D" type="Area2D" parent="Fan"]
 gravity_space_override = 1
 gravity_point_center = Vector2(5, 0)
 gravity_direction = Vector2(5, 0)
-script = ExtResource("2_qog5v")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Fan/Area2D"]
-position = Vector2(52.4999, 0)
+position = Vector2(45.6667, 0)
 shape = SubResource("RectangleShape2D_b7lj6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fan"]
@@ -909,7 +909,6 @@ shape = SubResource("RectangleShape2D_qndmc")
 position = Vector2(-1, 7)
 
 [node name="MovingPlatform" type="Path2D" parent="."]
-visible = false
 curve = SubResource("Curve2D_yfin4")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MovingPlatform"]
@@ -975,7 +974,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Collectible" type="Area2D" parent="."]
-visible = false
 script = ExtResource("7_y7apt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible"]
@@ -994,7 +992,6 @@ unique_name_in_owner = true
 script = ExtResource("8_phw14")
 
 [node name="Enemy" type="StaticBody2D" parent="."]
-visible = false
 position = Vector2(65, 357)
 scale = Vector2(3, 3)
 script = ExtResource("10_renft")
@@ -1011,9 +1008,8 @@ sprite_frames = SubResource("SpriteFrames_etkvj")
 autoplay = "default"
 
 [connection signal="body_entered" from="Fan" to="Fan" method="_on_body_entered"]
+[connection signal="body_entered" from="Fan" to="CharacterBody2D" method="_on_fan_body_entered"]
 [connection signal="body_exited" from="Fan" to="Fan" method="_on_body_exited"]
-[connection signal="body_entered" from="Fan/Area2D" to="Fan/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Fan/Area2D" to="Fan/Area2D" method="_on_body_exited"]
 [connection signal="body_entered" from="Collectible" to="CharacterBody2D" method="_on_collectible_body_entered"]
 [connection signal="body_entered" from="Collectible" to="Collectible" method="_on_body_entered"]
 [connection signal="body_entered" from="Enemy/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
