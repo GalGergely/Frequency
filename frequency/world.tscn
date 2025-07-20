@@ -18,9 +18,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_57egw"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 293, 250, 0, 0, 0, 0, 226, -41, 0, 0, 0, 0, -70, -84, 0, 0, 0, 0, -370, 89, 0, 0, 0, 0, -57, 480, 0, 0, 0, 0, 293, 250, 0, 0, 0, 0, 1576, 320)
+"points": PackedVector2Array(0, 0, 0, 0, -5, 322, 0, 0, 0, 0, -391, 37, 0, 0, 0, 0, 76, -185, 0, 0, 0, 0, 330, 147, 0, 0, 0, 0, -5, 322)
 }
-point_count = 7
+point_count = 5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fw0q"]
 atlas = ExtResource("3_lihmq")
@@ -796,7 +796,7 @@ position = Vector2(334, -65)
 curve = SubResource("Curve2D_57egw")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MovingPlatform5/Path2D2"]
-position = Vector2(293, 250)
+position = Vector2(-5, 322)
 rotation = 1.5708
 rotates = false
 script = ExtResource("1_byns0")
@@ -805,7 +805,7 @@ script = ExtResource("1_byns0")
 remote_path = NodePath("../../../StaticBody2D2")
 
 [node name="StaticBody2D2" type="AnimatableBody2D" parent="MovingPlatform5"]
-position = Vector2(627, 185)
+position = Vector2(329, 257)
 rotation = 1.5708
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MovingPlatform5/StaticBody2D2"]
@@ -940,7 +940,7 @@ shape = SubResource("RectangleShape2D_0b2q8")
 position = Vector2(1354, -72)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_b1t7p")]
-position = Vector2(1375, -467)
+position = Vector2(54, 542)
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
